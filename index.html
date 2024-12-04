@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор цитат</title>
+  <style>
+    /* Устанавливаем базовые стили */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #FF9A8B, #FF6A88, #FF5F7E); /* Градиентный фон */
+      background-size: cover;
+      color: white;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    /* Окно с цитатой */
+    .quote-box {
+      background: rgba(255, 255, 255, 0.9); /* Полупрозрачный фон */
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* Текст цитаты */
+    .quote-text {
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Автор цитаты */
+    .quote-author {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #555;
+      margin-top: 15px;
+    }
+
+    /* Кнопка генерации цитаты */
+    .generate-button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    /* Эффект при наведении на кнопку */
+    .generate-button:hover {
+      background-color: #2980b9;
+      transform: translateY(-3px); /* Подъем кнопки */
+    }
+
+    /* Анимация цитаты при смене */
+    .quote-box.animate {
+      transform: scale(1.1);
+    }
+
+    /* Добавление анимации цитаты */
+    .quote-box.animate .quote-text,
+    .quote-box.animate .quote-author {
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quote-box" id="quote-box">
+    <p class="quote-text" id="quote-text">"Начни там, где ты есть. Используй то, что у тебя есть. Делай то, что можешь."</p>
+    <p class="quote-author" id="quote-author">— Артур Эш</p>
+    <button class="generate-button" id="generate-button">Сгенерировать цитату</button>
+  </div>
+
+  <script>
+    const quotes = [
+      { text: "Не бойтесь делать большие шаги. Вы не сможете перепрыгнуть пропасть двумя маленькими прыжками.", author: "Дэвид Ллойд Джордж" },
+      { text: "Будь тем изменением, которое ты хочешь увидеть в мире.", author: "Махатма Ганди" },
+      { text: "Тот, кто не рискует, не пьет шампанское.", author: "Георгий Жуков" },
+      { text: "Пока ты не научишься проигрывать, ты не научишься выигрывать.", author: "Луис Хэмилтон" },
+      { text: "Самое важное — это не победы, а то, как ты играешь.", author: "Джон Вуден" }
+    ];
+
+    const quoteTextElement = document.getElementById('quote-text');
+    const quoteAuthorElement = document.getElementById('quote-author');
+    const generateButton = document.getElementById('generate-button');
+    const quoteBox = document.getElementById('quote-box');
+
+    function getRandomQuote() {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      return quotes[randomIndex];
+    }
+
+    generateButton.addEventListener('click', () => {
+      const newQuote = getRandomQuote();
+      
+      // Анимация цитаты
+      quoteBox.classList.add('animate');
+      setTimeout(() => {
+        quoteBox.classList.remove('animate');
+        quoteTextElement.textContent = `"${newQuote.text}"`;
+        quoteAuthorElement.textContent = `— ${newQuote.author}`;
+      }, 500);
+    });
+  </script>
+
+</body>
+</html>
